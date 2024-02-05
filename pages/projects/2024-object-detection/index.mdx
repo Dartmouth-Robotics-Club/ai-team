@@ -1,0 +1,139 @@
+# Object Detection
+
+## Project Objective
+
+Since we are building a disaster management robot,
+we thought building a smart object-detection system
+would be a great addition to the robot's capabilities.
+
+The goal is simple: given an image, we want to be able to identify
+and label the objects in the image.
+
+![Object Detection](/object-detection.png)
+
+::::steps
+
+## Building Neural Network
+
+Since most of the state-of-the-art methods in object detection are based on deep learning,
+we start by exploring the anatomy and architecture of a simple neural network
+and understanding why it works.
+
+## Evolution
+
+Here are some of the state-of-the-art methods used for object detection
+by companies such as Tesla, Google, and Facebook.
+
+### 1. CNN
+
+> Convolutional Neural Networks
+
+CNNs are the backbone of most object detection methods. They are used to extract features from images.
+They are comprised of fully-connected layers, similar to the ones in a regular (feed-forward) neural network.
+
+However, they also have convolutional and pooling layers, which are used to more effectively detect features
+such as lines and shapes in an image.
+
+![Convolution Operation](/convolution.gif)
+
+Convolutions allow extraction fo features from an image, such as edges, corners, and textures.
+
+![Convolution Results](/convolution.jpeg)
+
+[CNN Paper](https://arxiv.org/abs/1409.1556)
+
+### 2. R-CNN
+
+> Region-based Convolutional Neural Networks
+
+CNNs process an entire image/feature map at once, which 
+has the disadvantage of being computationally expensive and slow.
+
+The main idea behind R-CNNs is to focus on specific _regions_ of an image
+and identify sophisticated features within those regions,
+then combine the results to make a final prediction.
+
+![R-CNN](/RCNN.webp)
+
+[R-CNN Paper](https://arxiv.org/abs/1311.2524)
+
+### 3. Fast R-CNN
+
+Improvement over R-CNN's detection speed through two main augmentations:
+
+- Performing feature extraction over the image before proposing regions,
+  thus only running one CNN over the entire image instead of 2000 CNNs over 2000 overlapping regions.
+- Replacing the SVM with a softmax layer, thus extending the neural network for predictions
+  instead of creating a new model. So, Now we only have one neural net to train,
+  as opposed to one neural net and many SVMs.
+
+![Fast R-CNN](/FastRCNN.webp)
+
+[Fast R-CNN Paper](https://arxiv.org/abs/1504.08083)
+
+### 4. Faster R-CNN
+
+Faster R-CNN is an improvement over Fast R-CNN, which replaces the slow
+_selective search_ algorithm
+with a Region Proposal Network (RPN) (a neural network
+that approximates regions of interest).
+
+![Faster R-CNN](/FasterRCNN.webp)
+
+[Faster R-CNN Paper](https://arxiv.org/abs/1506.01497)
+
+### 5. SSD
+
+> Single Shot Detector
+
+SSD provides enormous speed gains over Faster-RCNN.
+While Faster-RCNN performed region proposals and region classifications in two separate steps.
+
+- Fast RCNN steps:
+
+  - First, use a region proposal network to generate regions of interest
+  - Then, use a classifier to classify those regions
+
+- SSD steps:
+
+  - Do all two in a "single shot" &mdash; simultaneously predict the bounding box and the class as it processes the image.
+
+:::tip[Caveat]
+SSD sounds straightforward, but training it has a unique challenge.
+
+With the previous two models, the region proposal network ensured that
+everything we tried to classify had some minimum probability of being an “object.”
+
+With SSD, however, we skip that filtering step.
+We classify and draw bounding boxes from every single position in the image,
+using multiple different shapes, at several different scales.
+
+As a result, we generate a much greater number of bounding boxes than the other models,
+and nearly all of them are negative examples.  
+**Hence, accuracy is lower in SSD.**
+:::
+
+[SSD Paper](https://arxiv.org/abs/1512.02325)
+
+### 6. YOLO
+
+> You Only Look Once
+>
+> **YOLO is the state-of-the-art object detection algorithm.**
+
+Prior detection systems repurpose classifiers or localizers to perform detection.
+They apply the model to an image at multiple locations and scales.
+High-scoring regions of the image are considered detections.
+
+YOLO uses a totally different approach:
+a single neural network is applied to the full image.
+This network divides the image into regions and predicts bounding boxes and probabilities for each region.
+CNNs is used to predict various class probabilities and bounding boxes simultaneously.
+These bounding boxes are then weighted by the predicted probabilities,
+and the highest-scoring ones are selected.
+
+![YOLO](/YOLO.webp)
+
+[YOLO Paper](https://arxiv.org/abs/1506.02640)
+
+::::

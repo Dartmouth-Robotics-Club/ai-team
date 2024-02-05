@@ -3,15 +3,20 @@ layout: landing
 ---
 
 import { HomePage } from 'vocs/components'
+import { Author } from "../components"
 
 <HomePage.Root>
   <HomePage.Logo />
+  <h1 className="blur">DSRT AI</h1>
   <HomePage.Tagline>
     Making Things Move (Smarter)
   </HomePage.Tagline>
   <HomePage.Buttons>
     <HomePage.Button href="https://dartmouthrobotics.com" variant="accent">
       Main Site
+    </HomePage.Button>
+    <HomePage.Button href="/projects" variant="accent">
+      Projects
     </HomePage.Button>
     <HomePage.Button href="https://github.com/Dartmouth-Robotics-Club">
       GitHub
@@ -25,7 +30,7 @@ import { HomePage } from 'vocs/components'
   </HomePage.Buttons>
 </HomePage.Root>
 
-## About
+# About
 
 The Dartmouth Student Robotics Team (DSRT) is a student-run team of current [Dartmouth][dartmouth] students
 who are passionate about the engineering and design of robots.
@@ -40,15 +45,18 @@ We have dedicated subteams that focus on various aspects:
 This site a project log and learning center for the AI team under product design.
 If you are interested in something else, try the [main site][dsrt].
 
-## Recent AI Projects
+# Recent AI Projects
 
 Explore mode in-depth project details [here](/projects).
 
-| Term | Project | Description |
-| ---- | ------- | ----------- |
-| [24W][winter24]  | Object Detection | Exploring and building the state-of-the-art in fast and efficient object detection in robots. | 
-| 22S  | Simultaneous Localization and Mapping (SLAM) | Using a LiDAR sensor and a camera, we are developing a SLAM algorithm to map the environment around the robot. |
+| Term  | Project | Description |
+| ----  | ------- | ----------- |
+| 2024  | [Object Detection][object-detection] | Exploring and building the state-of-the-art in fast and efficient object detection in autonomous agents. | 
+| 2023  | [Simultaneous Localization and Mapping (SLAM)][slam] | Exploring advanced methods used in solving the localization and mapping problem, such as Graph-SLAM. |
 
-[dsrt]: https://dartmouthrobotics.com
-[dartmouth]: https://dartmouth.edu
-[winter24]: /projects/24w
+[dsrt]:             https://dartmouthrobotics.com
+[dartmouth]:        https://dartmouth.edu
+[object-detection]: /projects/2024-object-detection
+[slam]:             /projects/2023-slam
+
+<Author />
